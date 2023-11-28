@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
@@ -30,26 +31,35 @@ namespace PansitBilao
             itemNoLabel.Text = itemNo.ToString();
         }
 
+        public void SetCustID(int custId)
+        {
+            label6.Text = custId.ToString();
+        }
+
         private void backBtn_Click(object sender, EventArgs e)
         {
             this.Close();
-            MainForm main = new MainForm();
+            DineIn main = new DineIn();
             main.Show();
         }
 
         private void COForm_Load(object sender, EventArgs e)
         {
             DataTable orderTable = new DataTable();
+            dataGridView1.Rows.Clear();
             
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                string query = "SELECT quantity AS Qty, itemName, price, amount AS TotalAmount FROM OrderTable WHERE item_no = @itemNo";
+                string query = "SELECT * FROM GetOrderDetails(@custId)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@itemNo", itemNoLabel.Text);
+                    // Assuming itemNoLabel.Text is the item number as a string
+                    // Convert it to int before passing it as a parameter
+                    command.Parameters.AddWithValue("@custId", int.Parse(label6.Text));
+
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
                         adapter.Fill(orderTable);
@@ -84,7 +94,38 @@ namespace PansitBilao
 
         private void printBtn_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                string fileName = $"C:\\Receipts\\Receipt_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.txt";
+                using (StreamWriter writer = new StreamWriter(fileName))
+                {
+                    writer.WriteLine("Qty, itemName, price, total amount");
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        string qty = row.Cells["Qty"].Value.ToString();
+                        string itemName = row.Cells["itemName"].Value.ToString();
+                        string price = row.Cells["price"].Value.ToString();
+                        string totalAmount = (Convert.ToDouble(row.Cells["Qty"].Value) * Convert.ToDouble(row.Cells["price"].Value)).ToString();
+
+                        string line = $"{qty}, {itemName}, {price}, {totalAmount}";
+                        writer.WriteLine(line);
+                    }
+                    writer.WriteLine("Total: "+$"{totalLabel.Text}");
+                    writer.WriteLine("Cash: " + $"{cashLabel.Text}");
+                    writer.WriteLine("Change: " + $"{changeLabel.Text}");
+                }
+
+                MessageBox.Show("Printed Successfully!", "Done", MessageBoxButtons.OK);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

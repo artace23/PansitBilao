@@ -46,6 +46,7 @@
             this.itemNo.Name = "itemNo";
             this.itemNo.Size = new System.Drawing.Size(195, 22);
             this.itemNo.TabIndex = 0;
+            this.itemNo.TextChanged += new System.EventHandler(this.itemNo_TextChanged);
             // 
             // label1
             // 

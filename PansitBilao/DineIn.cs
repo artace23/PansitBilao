@@ -18,6 +18,7 @@ namespace PansitBilao
         public DineIn()
         {
             InitializeComponent();
+            LoadMenu();
         }
         public void UpdateStatus(string newText)
         {
@@ -55,31 +56,89 @@ namespace PansitBilao
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
+            itemTable.Rows.Clear();
+            total.Text = "";
+        }
 
-            this.Close();
+        public int LoadCustID()
+        {
+            using(SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Customer", connection))
+                {
+                    int custId = 0;
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            int cust = reader.GetInt32(0);
+                            custId = cust;
+                        }
+                    }
+                    connection.Close();
+
+                    return custId;
+                }
+            }
+        }
+
+        public void insertCustomer()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand("InsertCustomerWithGeneratedName", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+
+        public void LoadMenu()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM Item", connection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader); // Load data from the reader into the DataTable
+
+                        dataGridView1.DataSource = dataTable; // Set the DataTable as the DataSource
+                    }
+                }
+                connection.Close();
+            }
         }
 
         private void proceedBtn_Click(object sender, EventArgs e)
         {
+            insertCustomer();
+            int custId = LoadCustID();
             string itemNo = "";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand("INSERT INTO OrderTable(item_no, itemName, quantity, date, price, amount, cash) " +
-        "VALUES (@itemNo, @itemName, @quantity, @date, @price, @amount, @cash)", connection))
+                using (SqlCommand command = new SqlCommand("InsertCustomerAndOrder", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
                     foreach (DataGridViewRow row in itemTable.Rows)
                     {
+                        command.Parameters.Clear();
                         itemNo = row.Cells["itemNo"].Value.ToString();
                         command.Parameters.AddWithValue("@itemNo", row.Cells["itemNo"].Value);
-                        command.Parameters.AddWithValue("@itemName", row.Cells["order"].Value);
                         command.Parameters.AddWithValue("@quantity", row.Cells["quantity"].Value);
-                        command.Parameters.AddWithValue("@date", DateTime.Now);
                         command.Parameters.AddWithValue("@price", row.Cells["price"].Value);
-                        command.Parameters.AddWithValue("@amount", total.Text);
                         command.Parameters.AddWithValue("@cash", cash.Text);
+                        command.Parameters.AddWithValue("@custId", custId);
+                        command.Parameters.AddWithValue("@employee", 1);
 
                         int rowsAffected = command.ExecuteNonQuery();
 
@@ -89,6 +148,8 @@ namespace PansitBilao
 
             decimal.TryParse(cash.Text, out decimal cashAmount);
             COForm cOForm = new COForm();
+            
+            cOForm.SetCustID(custId);
             cOForm.SetItemNo(itemNo);
             cOForm.SetCash(cashAmount);
             this.Close();

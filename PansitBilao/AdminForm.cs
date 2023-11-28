@@ -23,21 +23,26 @@ namespace PansitBilao
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand("Select * from OrderTable Where item_no = @itemNo", connection))
+                string storedProcedureName = "GetOrderDetailsWithReports";
+
+                using (SqlCommand command = new SqlCommand(storedProcedureName, connection))
                 {
-                    command.Parameters.AddWithValue("@itemNo", searchTextBox.Text);
+                    command.CommandType = CommandType.StoredProcedure;
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    // Assuming itemNoLabel.Text is the item number as a string
+                    // Convert it to int before passing it as a parameter
+                    command.Parameters.AddWithValue("@itemNo", int.Parse(searchTextBox.Text));
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        dataGridView1.Rows.Clear();
-                        dataGridView1.Columns.Add("itemNo", "Item No.");
-                        dataGridView1.Columns.Add("date", "Date");
+                        // Create a DataTable to hold the data
+                        DataTable orderTable = new DataTable();
 
-                        while (reader.Read())
-                        {
-                            dataGridView1.Rows.Add(reader["item_no"], reader["Date"]);
-                        }   
+                        // Use the Fill method to populate the DataTable
+                        adapter.Fill(orderTable);
+
+                        // Set the DataGridView's DataSource to the filled DataTable
+                        dataGridView1.DataSource = orderTable;
                     }
                 }
             }
@@ -50,6 +55,7 @@ namespace PansitBilao
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            dataGridView2.Rows.Clear();
             if (e.RowIndex >= 0)
             {
                 try
@@ -58,22 +64,27 @@ namespace PansitBilao
 
                     // Check the column name used for 'itemNo', it should match the actual column name.
                     string itemNo = selectedRow.Cells["itemNo"].Value.ToString();
-
+                    int custId = int.Parse(selectedRow.Cells["custId"].Value.ToString());
                     using (SqlConnection connection = new SqlConnection(connectionString))
                     {
                         connection.Open();
-                        using (SqlCommand command = new SqlCommand("SELECT * FROM OrderTable WHERE item_no = @itemNo", connection))
+                        using (SqlCommand command = new SqlCommand("GetOrderDetailsWithReportsAndBilling", connection))
                         {
+                            command.CommandType = CommandType.StoredProcedure;
                             command.Parameters.AddWithValue("@itemNo", itemNo);
+                            command.Parameters.AddWithValue("@custId", custId);
                             SqlDataReader reader = command.ExecuteReader();
+                            itemNoLabel.Text = itemNo;
                             while (reader.Read())
                             {
-                                itemNoLabel.Text = reader["item_no"].ToString();
-                                dateLabel.Text = reader["date"].ToString();
+                                dateLabel.Text = reader["orderDate"].ToString();
 
+                                decimal qty = Convert.ToDecimal(reader["Qty"]);
+                                decimal price = Convert.ToDecimal(reader["price"]);
+                                decimal totalAmount = qty * price;
                                 // Clear existing rows in dataGridView2 before populating.
                                 dataGridView2.Rows.Clear();
-                                dataGridView2.Rows.Add(reader["quantity"].ToString(), reader["itemName"].ToString(), reader["price"].ToString(), reader["amount"].ToString());
+                                dataGridView2.Rows.Add(reader["Qty"].ToString(), reader["itemName"].ToString(), reader["price"].ToString(), totalAmount.ToString());
 
                                 int total = 0;
 
@@ -99,6 +110,18 @@ namespace PansitBilao
                     MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
+        }
+
+        private void ItemBtn_Click(object sender, EventArgs e)
+        {
+            AddMenuForm addMenu = new AddMenuForm();
+            addMenu.Show();
+        }
+
+        private void salesBtn_Click(object sender, EventArgs e)
+        {
+            SalesReports salesReports = new SalesReports();
+            salesReports.Show();
         }
     }
 }

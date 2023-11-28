@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace PansitBilao
 {
     public partial class Form1 : Form
     {
+        private string connectionString = "Data Source=LAPTOP-TV64G129\\SQLEXPRESS;Initial Catalog=pansitBilao;Integrated Security=True";
         public Form1()
         {
             InitializeComponent();
@@ -22,28 +24,65 @@ namespace PansitBilao
             string user = username.Text;
             string pass = password.Text;
 
-            if (user == "user" && pass == "user")
-            { 
-                this.Hide();
-                MainForm mainForm = new MainForm();
-
-                mainForm.Show();
-            }
-
-            else if(user == "admin" && pass == "admin")
+            try
             {
-                this.Hide();
-                AdminForm admin = new AdminForm();
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
 
-                admin.Show();
+                    string query = "SELECT * FROM dbo.GetEmployeeCredentials(@username, @password)";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@username", user);
+                        command.Parameters.AddWithValue("@password", pass);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string storedUser = reader["Username"].ToString();
+                                string storedPass = reader["Password"].ToString();
+                                string role = reader["Role"].ToString();
+
+                                if (user == storedUser && pass == storedPass)
+                                {
+                                    // Successful login
+                                    if (role == "staff")
+                                    {
+                                        this.Hide();
+                                        DineIn mainForm = new DineIn();
+                                        mainForm.Show();
+                                    }
+                                    else if (role == "admin")
+                                    {
+                                        this.Hide();
+                                        AdminForm admin = new AdminForm();
+                                        admin.Show();
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Invalid username or password. Please try again.");
+                                    username.Text = "";
+                                    password.Text = "";
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Invalid username or password. Please try again.");
+                                username.Text = "";
+                                password.Text = "";
+                            }
+                        }
+                    }
+                }
             }
-
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid username or password. Please try again.");
-                username.Text = "";
-                password.Text = "";
+                MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
+
     }
 }

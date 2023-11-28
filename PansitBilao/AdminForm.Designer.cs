@@ -49,6 +49,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
+            this.ItemBtn = new System.Windows.Forms.Button();
+            this.salesBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -56,15 +58,17 @@
             // 
             // searchTextBox
             // 
-            this.searchTextBox.Location = new System.Drawing.Point(456, 59);
+            this.searchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchTextBox.Location = new System.Drawing.Point(807, 59);
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(174, 22);
             this.searchTextBox.TabIndex = 0;
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(453, 40);
+            this.label1.Location = new System.Drawing.Point(804, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 16);
             this.label1.TabIndex = 1;
@@ -72,7 +76,8 @@
             // 
             // searchBtn
             // 
-            this.searchBtn.Location = new System.Drawing.Point(659, 40);
+            this.searchBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchBtn.Location = new System.Drawing.Point(1010, 40);
             this.searchBtn.Name = "searchBtn";
             this.searchBtn.Size = new System.Drawing.Size(128, 41);
             this.searchBtn.TabIndex = 2;
@@ -84,21 +89,25 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(456, 106);
+            this.dataGridView1.Location = new System.Drawing.Point(367, 106);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(331, 329);
+            this.dataGridView1.Size = new System.Drawing.Size(771, 464);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.changeLabel);
             this.panel1.Controls.Add(this.cashLabel);
@@ -112,15 +121,15 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.titleLabel);
-            this.panel1.Location = new System.Drawing.Point(45, 72);
+            this.panel1.Location = new System.Drawing.Point(45, 106);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(354, 363);
+            this.panel1.Size = new System.Drawing.Size(665, 464);
             this.panel1.TabIndex = 4;
             // 
             // changeLabel
             // 
             this.changeLabel.AutoSize = true;
-            this.changeLabel.Location = new System.Drawing.Point(265, 319);
+            this.changeLabel.Location = new System.Drawing.Point(398, 421);
             this.changeLabel.Name = "changeLabel";
             this.changeLabel.Size = new System.Drawing.Size(54, 16);
             this.changeLabel.TabIndex = 11;
@@ -129,7 +138,7 @@
             // cashLabel
             // 
             this.cashLabel.AutoSize = true;
-            this.cashLabel.Location = new System.Drawing.Point(281, 300);
+            this.cashLabel.Location = new System.Drawing.Point(398, 402);
             this.cashLabel.Name = "cashLabel";
             this.cashLabel.Size = new System.Drawing.Size(38, 16);
             this.cashLabel.TabIndex = 10;
@@ -138,7 +147,7 @@
             // totalLabel
             // 
             this.totalLabel.AutoSize = true;
-            this.totalLabel.Location = new System.Drawing.Point(281, 280);
+            this.totalLabel.Location = new System.Drawing.Point(398, 382);
             this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(38, 16);
             this.totalLabel.TabIndex = 9;
@@ -147,7 +156,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(37, 319);
+            this.label5.Location = new System.Drawing.Point(154, 421);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 16);
             this.label5.TabIndex = 8;
@@ -156,7 +165,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(37, 300);
+            this.label4.Location = new System.Drawing.Point(154, 402);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 16);
             this.label4.TabIndex = 7;
@@ -165,7 +174,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 280);
+            this.label3.Location = new System.Drawing.Point(154, 382);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 16);
             this.label3.TabIndex = 6;
@@ -191,7 +200,7 @@
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(281, 120);
+            this.dataGridView2.Size = new System.Drawing.Size(593, 225);
             this.dataGridView2.TabIndex = 5;
             // 
             // Qty
@@ -225,7 +234,7 @@
             // dateLabel
             // 
             this.dateLabel.AutoSize = true;
-            this.dateLabel.Location = new System.Drawing.Point(98, 79);
+            this.dateLabel.Location = new System.Drawing.Point(106, 79);
             this.dateLabel.Name = "dateLabel";
             this.dateLabel.Size = new System.Drawing.Size(27, 16);
             this.dateLabel.TabIndex = 4;
@@ -234,7 +243,7 @@
             // itemNoLabel
             // 
             this.itemNoLabel.AutoSize = true;
-            this.itemNoLabel.Location = new System.Drawing.Point(98, 56);
+            this.itemNoLabel.Location = new System.Drawing.Point(106, 56);
             this.itemNoLabel.Name = "itemNoLabel";
             this.itemNoLabel.Size = new System.Drawing.Size(27, 16);
             this.itemNoLabel.TabIndex = 3;
@@ -261,17 +270,39 @@
             // titleLabel
             // 
             this.titleLabel.AutoSize = true;
-            this.titleLabel.Location = new System.Drawing.Point(123, 16);
+            this.titleLabel.Location = new System.Drawing.Point(231, 18);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(99, 16);
             this.titleLabel.TabIndex = 0;
             this.titleLabel.Text = "Pansit sa Bilao ";
             // 
+            // ItemBtn
+            // 
+            this.ItemBtn.Location = new System.Drawing.Point(45, 40);
+            this.ItemBtn.Name = "ItemBtn";
+            this.ItemBtn.Size = new System.Drawing.Size(133, 41);
+            this.ItemBtn.TabIndex = 5;
+            this.ItemBtn.Text = "Item Management";
+            this.ItemBtn.UseVisualStyleBackColor = true;
+            this.ItemBtn.Click += new System.EventHandler(this.ItemBtn_Click);
+            // 
+            // salesBtn
+            // 
+            this.salesBtn.Location = new System.Drawing.Point(202, 40);
+            this.salesBtn.Name = "salesBtn";
+            this.salesBtn.Size = new System.Drawing.Size(133, 41);
+            this.salesBtn.TabIndex = 6;
+            this.salesBtn.Text = "Sales Reports";
+            this.salesBtn.UseVisualStyleBackColor = true;
+            this.salesBtn.Click += new System.EventHandler(this.salesBtn_Click);
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(861, 477);
+            this.ClientSize = new System.Drawing.Size(1212, 612);
+            this.Controls.Add(this.salesBtn);
+            this.Controls.Add(this.ItemBtn);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.searchBtn);
@@ -280,6 +311,7 @@
             this.Name = "AdminForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AdminForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -312,5 +344,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.Button ItemBtn;
+        private System.Windows.Forms.Button salesBtn;
     }
 }
