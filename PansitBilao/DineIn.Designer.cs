@@ -43,6 +43,11 @@
             this.price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.itemTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +56,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(76, 129);
+            this.label1.Location = new System.Drawing.Point(76, 94);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 16);
             this.label1.TabIndex = 0;
@@ -61,7 +66,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(76, 163);
+            this.label2.Location = new System.Drawing.Point(76, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 16);
             this.label2.TabIndex = 1;
@@ -71,7 +76,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(76, 197);
+            this.label3.Location = new System.Drawing.Point(76, 162);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 16);
             this.label3.TabIndex = 2;
@@ -80,7 +85,7 @@
             // total
             // 
             this.total.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.total.Location = new System.Drawing.Point(127, 159);
+            this.total.Location = new System.Drawing.Point(127, 124);
             this.total.Name = "total";
             this.total.ReadOnly = true;
             this.total.Size = new System.Drawing.Size(148, 22);
@@ -89,7 +94,7 @@
             // cash
             // 
             this.cash.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cash.Location = new System.Drawing.Point(127, 193);
+            this.cash.Location = new System.Drawing.Point(127, 158);
             this.cash.Name = "cash";
             this.cash.Size = new System.Drawing.Size(148, 22);
             this.cash.TabIndex = 5;
@@ -97,7 +102,7 @@
             // addBtn
             // 
             this.addBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.addBtn.Location = new System.Drawing.Point(79, 265);
+            this.addBtn.Location = new System.Drawing.Point(79, 284);
             this.addBtn.Name = "addBtn";
             this.addBtn.Size = new System.Drawing.Size(88, 53);
             this.addBtn.TabIndex = 6;
@@ -108,7 +113,7 @@
             // cancelBtn
             // 
             this.cancelBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cancelBtn.Location = new System.Drawing.Point(187, 265);
+            this.cancelBtn.Location = new System.Drawing.Point(187, 284);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(88, 53);
             this.cancelBtn.TabIndex = 7;
@@ -119,7 +124,7 @@
             // proceedBtn
             // 
             this.proceedBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.proceedBtn.Location = new System.Drawing.Point(294, 265);
+            this.proceedBtn.Location = new System.Drawing.Point(294, 284);
             this.proceedBtn.Name = "proceedBtn";
             this.proceedBtn.Size = new System.Drawing.Size(88, 53);
             this.proceedBtn.TabIndex = 8;
@@ -186,7 +191,7 @@
             this.status.Items.AddRange(new object[] {
             "Dine In",
             "Take Out"});
-            this.status.Location = new System.Drawing.Point(127, 129);
+            this.status.Location = new System.Drawing.Point(127, 94);
             this.status.Name = "status";
             this.status.Size = new System.Drawing.Size(148, 24);
             this.status.TabIndex = 10;
@@ -209,11 +214,62 @@
             this.dataGridView1.Size = new System.Drawing.Size(505, 212);
             this.dataGridView1.TabIndex = 11;
             // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.textBox1.Location = new System.Drawing.Point(127, 221);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(148, 22);
+            this.textBox1.TabIndex = 13;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(42, 224);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 16);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "First Name";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.textBox2.Location = new System.Drawing.Point(127, 249);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(148, 22);
+            this.textBox2.TabIndex = 15;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(42, 252);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(72, 16);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Last Name";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(41, 203);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(67, 16);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Customer:";
+            // 
             // DineIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(946, 433);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.status);
             this.Controls.Add(this.itemTable);
@@ -253,5 +309,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn price;
         private System.Windows.Forms.ComboBox status;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }
